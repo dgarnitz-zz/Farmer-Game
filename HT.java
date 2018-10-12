@@ -1,34 +1,86 @@
 public class HT extends AbstractItem {
 
-    public HT(int xCoordinate, int yCoordinate) {
+    public int capacity;
+
+    public HT(Grid grid, int xCoordinate, int yCoordinate, int capacity) {
+        this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.capacity = capacity;
     }
 
-    @override
-    public abstract void process(TimeStep timeStep) {
-        /* locate farmer, check if cell has anything in the store, move from store to consumer
-           reduce the store at that cell back to 0, add it to the store at the cell where the consumer is*/
+    public int farmerLocation(){
+        int gridWidth = grid.getWidth();
+        for(int i=xCoordinate-1; i>=0;  i--){
+            AbstractItem farmer = grid.getItem(i, yCoordinate);
+            if(farmer instanceof RadishFarmer){
+                return i;
+            }
+        }
+        for(int k = xCoordinate; k<gridWidth; k++){
+            AbstractItem farmer = grid.getItem(k, yCoordinate);
+            if(farmer instanceof RadishFarmer){
+                return k;
+            }
+        }
+        return gridWidth+1;
     }
 
-    @override
-    protected int getStock() {
-        /* Does this need to check the stock of every space of the grid that is on the same vertical line
-         * or does just need to search the vertical line for a farmer? Or do you do that in another method? */
-        return Grid.getStockAt(xCoordinate, yCoordinate);
+    public int consumerLocation(int farmerXCoordinate){
+        int gridWidth = grid.getWidth();
+        if(farmerXCoordinate < xCoordinate){
+            for(int j = xCoordinate + 1; j<gridWidth; j++){
+                AbstractItem consumer = grid.getItem(j, yCoordinate);
+                if(consumer instanceof Rabbit){
+                    return j;
+                }
+            }
+        }
+        else{
+            for(int j = xCoordinate - 1; j>=0; j--){
+                AbstractItem consumer = grid.getItem(j, yCoordinate);
+                if(consumer instanceof Rabbit){
+                    return j;
+                }
+            }
+        }
+        return gridWidth+1;
     }
 
-    @override
-    protected void addToStock(int nutrition) {
-        /* This need to add stock to the where the consumer is so they can check it
-         * So the arguments passed to the function below need to change */
-        Grid.addToStockAt(xCoordinate, yCoordinate, nutrition);
+    @Override
+    public void process(TimeStep timeStep) {
+        int farmerXCoordinate = farmerLocation();
+        if(farmerXCoordinate==(grid.getWidth()+1)){
+            return;
+        }
+        int consumerXCoordinate = consumerLocation(farmerXCoordinate);
+        if(consumerXCoordinate==(grid.getWidth()+1)){
+            return;
+        }
+
+        int farmerStock = grid.getStockAt(farmerXCoordinate, yCoordinate);
+        if(farmerStock > capacity){
+            grid.reduceStockAt(farmerXCoordinate, yCoordinate, capacity);
+            grid.addToStockAt(consumerXCoordinate, yCoordinate, capacity);
+        }
+        else {
+            grid.reduceStockAt(farmerXCoordinate, yCoordinate, farmerStock);
+            grid.addToStockAt(consumerXCoordinate, yCoordinate, farmerStock);
+        }
     }
 
-    @override
-    protected void reduceStock(int nutrition) {
-        /* This need to reduce stock at where the farmer is located
-        *  So the arguments passed to the function below need to change*/
-        Grid.reduceStockAt(xCoordinate, yCoordinate, nutrition);
+    @Override
+    protected int getStock(){
+
+    }
+
+    @Override
+    protected void addToStock(int nutrition){
+
+    }
+
+    @Override
+    protected void reduceStock(int nutrition){
+
     }
 }

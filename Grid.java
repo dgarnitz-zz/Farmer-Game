@@ -1,88 +1,98 @@
 public class Grid extends AbstractGrid {
 
-    @override
+    private int height;
+    private int width;
+
+    public Grid(int width, int height){
+        this.height = height;
+        this.width = width;
+        grid = new AbstractItem[height][width];
+        stock = new int[height][width];
+    }
+
+    @Override
     public int getWidth(){
-        return grid[0].length;
+        return width;
     }
 
-    @override
+    @Override
     public int getHeight(){
-        return grid.length;
+        return height;
     }
 
-    @override
+    @Override
     public void registerItem(int xCoordinate, int yCoordinate, AbstractItem item){
-        grid[xCoordinate][yCoordinate] = item;
+        grid[yCoordinate][xCoordinate] = item;
     }
 
-    @override
+    @Override
     public AbstractItem getItem(int xCoordinate, int yCoordinate){
-        if(xCoordinate >= this.getWidth() || yCoordinate >= this.getHeight()){
+        if(xCoordinate >= width || yCoordinate >= height){
             return null;
         }
-        if(grid[xCoordinate][yCoordinate] == null){
+        if(grid[yCoordinate][xCoordinate] == null){
             return null;
         }
 
-        return grid[xCoordinate][yCoordinate];
+        return grid[yCoordinate][xCoordinate];
     }
 
-    @override
+    @Override
     public int getStockAt(int xCoordinate, int yCoordinate){
-        return stock[xCoordinate][yCoordinate];
+        return stock[yCoordinate][xCoordinate];
     }
 
-    @override
+    @Override
     public void emptyStockAt(int xCoordinate, int yCoordinate){
-        stock[xCoordinate][yCoordinate] = 0;
+        stock[yCoordinate][xCoordinate] = 0;
     }
 
-    @override
+    @Override
     public void addToStockAt(int xCoordinate, int yCoordinate, int nutrition){
-        stock[xCoordinate][yCoordinate] += nutrition;
+        stock[yCoordinate][xCoordinate] += nutrition;
     }
 
-    @override
+    @Override
     public void reduceStockAt(int xCoordinate, int yCoordinate, int nutrition){
-        if(stock[xCoordinate][yCoordinate] < nutrition){
-            stock[xCoordinate][yCoordinate] = 0;
+        if(stock[yCoordinate][xCoordinate] < nutrition){
+            stock[yCoordinate][xCoordinate] = 0;
         }
         else{
-            stock[xCoordinate][yCoordinate] -= nutrition;
+            stock[yCoordinate][xCoordinate] -= nutrition;
         }
     }
 
-    @override
+    @Override
     public void setStockAt(int xCoordinate, int yCoordinate, int nutrition){
         if(nutrition < 0){
-            stock[xCoordinate][yCoordinate] = 0;
+            stock[yCoordinate][xCoordinate] = 0;
         }
         else{
-            stock[xCoordinate][yCoordinate] =  nutrition;
+            stock[yCoordinate][xCoordinate] =  nutrition;
         }
     }
 
     /* NOT SURE HOW TO DO THIS YET
     */
-    @override
+    @Override
     public void processItems(TimeStep timeStep);
 
-    @override
+    @Override
     public void recordProduction(int nutrition){
         PlayGame.production += nutrition;
     }
 
-    @override
+    @Override
     public int getTotalProduction(){
         return PlayGame.production;
     }
 
-    @override
+    @Override
     public void recordConsumption(int nutrition){
         PlayGame.consumption += nutrition;
     }
 
-    @override
+    @Override
     public int getTotalConsumption(){
         return PlayGame.consumption;
     }

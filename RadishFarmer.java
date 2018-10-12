@@ -1,33 +1,34 @@
 public class RadishFarmer extends AbstractItem {
 
-    public RadishFarmer(int xCoordinate, int yCoordinate) {
+    public RadishFarmer(AbstractGrid grid, int xCoordinate, int yCoordinate) {
+        this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
 
-    @override
-    public abstract void process(TimeStep timeStep) {
+    @Override
+    public void process(TimeStep timeStep) {
         int step = timeStep.getValue();
         if((step-1) % 3 == 0) {
             /* produces on step 3 or 4?? */
-            Grid.recordProduction(10);
+            grid.recordProduction(10);
             addToStock(10);
         }
         /* Need to insert method to check if there is another farmer */
     }
 
-    @override
+    @Override
     protected int getStock() {
-        return Grid.getStockAt(xCoordinate, yCoordinate);
+        return grid.getStockAt(xCoordinate, yCoordinate);
     }
 
-    @override
+    @Override
     protected void addToStock(int nutrition) {
-        Grid.addToStockAt(xCoordinate, yCoordinate, nutrition);
+        grid.addToStockAt(xCoordinate, yCoordinate, nutrition);
     }
 
-    @override
+    @Override
     protected void reduceStock(int nutrition) {
-        Grid.reduceStockAt(xCoordinate, yCoordinate, nutrition);
+        grid.reduceStockAt(xCoordinate, yCoordinate, nutrition);
     }
 }
