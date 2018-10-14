@@ -6,6 +6,7 @@ public class Rabbit extends AbstractItem {
         this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        grid.registerItem(xCoordinate, yCoordinate, this);
     }
 
     @Override

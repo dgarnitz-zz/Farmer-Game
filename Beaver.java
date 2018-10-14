@@ -6,6 +6,7 @@ public class Beaver extends AbstractItem {
         this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        grid.registerItem(xCoordinate, yCoordinate, this);
     }
 
     @Override
@@ -28,7 +29,8 @@ public class Beaver extends AbstractItem {
 
     @Override
     public String toString(){
-        return type;
+        int stock = getStock();
+        return type + "(" + stock + ")";
     }
 
     @Override

@@ -1,10 +1,11 @@
 public class CornFarmer extends AbstractItem {
-    public String type = "Corn Farmer";
+    public String type = "Corn";
 
     public CornFarmer(AbstractGrid grid, int xCoordinate, int yCoordinate) {
         this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        grid.registerItem(xCoordinate, yCoordinate, this);
     }
 
     public boolean checkOtherFarmers(){
@@ -60,7 +61,8 @@ public class CornFarmer extends AbstractItem {
 
     @Override
     public String toString(){
-        return type;
+        int stock = getStock();
+        return type + "(" + stock + ")";
     }
 
     @Override

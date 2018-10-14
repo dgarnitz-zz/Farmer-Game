@@ -1,11 +1,12 @@
 public class RadishFarmer extends AbstractItem {
 
-    public String type = "Radish Farmer";
+    public String type = "Radish";
 
     public RadishFarmer(AbstractGrid grid, int xCoordinate, int yCoordinate) {
         this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        grid.registerItem(xCoordinate, yCoordinate, this);
     }
 
     public boolean checkOtherFarmers(){
