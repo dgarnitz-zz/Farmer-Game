@@ -87,7 +87,7 @@ public class Grid extends AbstractGrid {
         for (int k=0; k<height; k++){
             for (int l=0; l<width; l++){
                 AbstractItem currentCell = getItem(l, k);
-                if(currentCell instanceof HorizontalTransporter || currentCell instanceof VT){
+                if(currentCell instanceof HorizontalTransporter || currentCell instanceof VerticalTransporter){
                     currentCell.process(timeStep);
                 }
             }
