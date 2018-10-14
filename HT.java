@@ -35,6 +35,14 @@ public class HT extends AbstractItem {
     public int consumerLocation(int farmerXCoordinate){
         int gridWidth = grid.getWidth();
         if(farmerXCoordinate < xCoordinate){
+
+            for(int m = xCoordinate - 1; m>farmerXCoordinate; m--){
+                AbstractItem checkPath = grid.getItem(m,yCoordinate);
+                if(checkPath != null){
+                    return gridWidth+1;
+                }
+            }
+
             for(int j = xCoordinate + 1; j<gridWidth; j++){
                 AbstractItem consumer = grid.getItem(j, yCoordinate);
                 if(consumer instanceof Rabbit){
@@ -43,6 +51,14 @@ public class HT extends AbstractItem {
             }
         }
         else{
+
+            for(int m = xCoordinate + 1; m<farmerXCoordinate; m++){
+                AbstractItem checkPath = grid.getItem(m,yCoordinate);
+                if(checkPath != null){
+                    return gridWidth+1;
+                }
+            }
+
             for(int j = xCoordinate - 1; j>=0; j--){
                 AbstractItem consumer = grid.getItem(j, yCoordinate);
                 if(consumer instanceof Rabbit){

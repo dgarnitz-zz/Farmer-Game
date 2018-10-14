@@ -70,7 +70,7 @@ public class Grid extends AbstractGrid {
         }
     }
 
-    /* make a method call searchGrid that handles this repeated for-loop logic
+    /* could make a method that handles this repeated for-loop logic, also this is computationally expensive
     */
     @Override
     public void processItems(TimeStep timeStep){

@@ -19,6 +19,10 @@ public class Rabbit extends AbstractItem {
             grid.recordConsumption(8);
             reduceStock(8);
         }
+        stock = getStock();
+        if(stock > 0){
+            grid.emptyStockAt(xCoordinate, yCoordinate);
+        }
 
     }
 
