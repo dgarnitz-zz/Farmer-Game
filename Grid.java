@@ -30,11 +30,9 @@ public class Grid extends AbstractGrid {
         if(xCoordinate >= width || yCoordinate >= height){
             return null;
         }
-        if(grid[yCoordinate][xCoordinate] == null){
-            return null;
+        else {
+            return grid[yCoordinate][xCoordinate];
         }
-
-        return grid[yCoordinate][xCoordinate];
     }
 
     @Override
@@ -72,10 +70,38 @@ public class Grid extends AbstractGrid {
         }
     }
 
-    /* NOT SURE HOW TO DO THIS YET
+    /* make a method call searchGrid that handles this repeated for-loop logic
     */
     @Override
-    public void processItems(TimeStep timeStep);
+    public void processItems(TimeStep timeStep){
+        /* Processs the farmers */
+        for (int i=0; i<height; i++){
+            for (int j=0; j<width; j++){
+                AbstractItem currentCell = getItem(j, i);
+                if(currentCell instanceof RadishFarmer){
+                    currentCell.process(timeStep);
+                }
+            }
+        }
+        /* Processs the transporters */
+        for (int k=0; k<height; k++){
+            for (int l=0; l<width; l++){
+                AbstractItem currentCell = getItem(l, k);
+                if(currentCell instanceof HT){
+                    currentCell.process(timeStep);
+                }
+            }
+        }
+        /* Processs the consumers */
+        for (int m=0; m<height; m++){
+            for (int n=0; n<width; n++){
+                AbstractItem currentCell = getItem(n, m);
+                if(currentCell instanceof Rabbit){
+                    currentCell.process(timeStep);
+                }
+            }
+        }
+    }
 
     @Override
     public void recordProduction(int nutrition){

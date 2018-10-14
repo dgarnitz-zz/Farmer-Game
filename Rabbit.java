@@ -1,5 +1,6 @@
 public class Rabbit extends AbstractItem {
 
+    public String type = "Rabbit";
 
     public Rabbit(Grid grid, int xCoordinate, int yCoordinate) {
         this.grid = grid;
@@ -19,6 +20,11 @@ public class Rabbit extends AbstractItem {
             reduceStock(8);
         }
 
+    }
+
+    @Override
+    public String toString(){
+        return type;
     }
 
     @Override

@@ -1,12 +1,18 @@
 public class HT extends AbstractItem {
 
     public int capacity;
+    public String type = "HT";
 
     public HT(Grid grid, int xCoordinate, int yCoordinate, int capacity) {
         this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.capacity = capacity;
+    }
+
+    @Override
+    public String toString(){
+        return type;
     }
 
     public int farmerLocation(){
@@ -71,7 +77,7 @@ public class HT extends AbstractItem {
 
     @Override
     protected int getStock(){
-
+        return grid.getStockAt(yCoordinate, xCoordinate);
     }
 
     @Override
