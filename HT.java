@@ -19,13 +19,13 @@ public class HT extends AbstractItem {
         int gridWidth = grid.getWidth();
         for(int i=xCoordinate-1; i>=0;  i--){
             AbstractItem farmer = grid.getItem(i, yCoordinate);
-            if(farmer instanceof RadishFarmer){
+            if(farmer instanceof RadishFarmer || farmer instanceof CornFarmer){
                 return i;
             }
         }
         for(int k = xCoordinate; k<gridWidth; k++){
             AbstractItem farmer = grid.getItem(k, yCoordinate);
-            if(farmer instanceof RadishFarmer){
+            if(farmer instanceof RadishFarmer || farmer instanceof CornFarmer){
                 return k;
             }
         }

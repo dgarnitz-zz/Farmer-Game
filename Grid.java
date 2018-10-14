@@ -78,7 +78,7 @@ public class Grid extends AbstractGrid {
         for (int i=0; i<height; i++){
             for (int j=0; j<width; j++){
                 AbstractItem currentCell = getItem(j, i);
-                if(currentCell instanceof RadishFarmer){
+                if(currentCell instanceof RadishFarmer || currentCell instanceof CornFarmer){
                     currentCell.process(timeStep);
                 }
             }

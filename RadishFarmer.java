@@ -12,25 +12,25 @@ public class RadishFarmer extends AbstractItem {
         AbstractItem checkFarmer;
         if(xCoordinate > 0){
             checkFarmer = grid.getItem(xCoordinate - 1, yCoordinate);
-            if(checkFarmer instanceof RadishFarmer){
+            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
                 return true;
             }
         }
         if(xCoordinate < grid.getWidth() - 1) {
             checkFarmer = grid.getItem(xCoordinate + 1, yCoordinate);
-            if(checkFarmer instanceof RadishFarmer){
+            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
                 return true;
             }
         }
         if(yCoordinate > 0){
             checkFarmer = grid.getItem(xCoordinate, yCoordinate - 1);
-            if(checkFarmer instanceof RadishFarmer){
+            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
                 return true;
             }
         }
         if(yCoordinate < grid.getHeight() - 1) {
             checkFarmer = grid.getItem(xCoordinate, yCoordinate + 1);
-            if(checkFarmer instanceof RadishFarmer){
+            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
                 return true;
             }
         }
@@ -45,7 +45,6 @@ public class RadishFarmer extends AbstractItem {
             grid.recordProduction(10);
             addToStock(10);
         }
-        /* Need to insert method to check if there is another farmer */
     }
 
     @Override

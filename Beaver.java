@@ -13,7 +13,6 @@ public class Beaver extends AbstractItem {
         int stock = getStock();
         if(stock <= 5){
             grid.recordConsumption(stock);
-            System.out.println("a beaver consumed: " + stock);
             reduceStock(stock);
         }
         else{
