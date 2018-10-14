@@ -96,7 +96,7 @@ public class Grid extends AbstractGrid {
         for (int m=0; m<height; m++){
             for (int n=0; n<width; n++){
                 AbstractItem currentCell = getItem(n, m);
-                if(currentCell instanceof Rabbit){
+                if(currentCell instanceof Rabbit || currentCell instanceof Beaver){
                     currentCell.process(timeStep);
                 }
             }

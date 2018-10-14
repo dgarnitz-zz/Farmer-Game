@@ -8,10 +8,40 @@ public class RadishFarmer extends AbstractItem {
         this.yCoordinate = yCoordinate;
     }
 
+    public boolean checkOtherFarmers(){
+        AbstractItem checkFarmer;
+        if(xCoordinate > 0){
+            checkFarmer = grid.getItem(xCoordinate - 1, yCoordinate);
+            if(checkFarmer instanceof RadishFarmer){
+                return true;
+            }
+        }
+        if(xCoordinate < grid.getWidth() - 1) {
+            checkFarmer = grid.getItem(xCoordinate + 1, yCoordinate);
+            if(checkFarmer instanceof RadishFarmer){
+                return true;
+            }
+        }
+        if(yCoordinate > 0){
+            checkFarmer = grid.getItem(xCoordinate, yCoordinate - 1);
+            if(checkFarmer instanceof RadishFarmer){
+                return true;
+            }
+        }
+        if(yCoordinate < grid.getHeight() - 1) {
+            checkFarmer = grid.getItem(xCoordinate, yCoordinate + 1);
+            if(checkFarmer instanceof RadishFarmer){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void process(TimeStep timeStep) {
         int step = timeStep.getValue();
-        if((step) % 3 == 0) {
+        boolean check = checkOtherFarmers();
+        if((step) % 3 == 0 && !check) {
             grid.recordProduction(10);
             addToStock(10);
         }
