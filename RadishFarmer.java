@@ -2,7 +2,7 @@ public class RadishFarmer extends AbstractItem {
 
     public String type = "Radish";
 
-    public RadishFarmer(AbstractGrid grid, int xCoordinate, int yCoordinate) {
+    public RadishFarmer(AbstractGrid grid, int yCoordinate, int xCoordinate) {
         this.grid = grid;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
@@ -50,7 +50,8 @@ public class RadishFarmer extends AbstractItem {
 
     @Override
     public String toString(){
-        return type;
+        int stock = getStock();
+        return type + "(" + stock + ")";
     }
 
     @Override

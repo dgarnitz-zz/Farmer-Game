@@ -3,7 +3,7 @@ public class Grid extends AbstractGrid {
     private int height;
     private int width;
 
-    public Grid(int width, int height){
+    public Grid(int height, int width){
         this.height = height;
         this.width = width;
         grid = new AbstractItem[height][width];
