@@ -4,13 +4,22 @@ public class PlayGame {
 
     public static void main(String[] args){
 
-        Grid grid = new Grid(5, 5);
-        new RadishFarmer(grid, 0, 0);
-        new Rabbit(grid, 4, 0);
+        Grid grid = new Grid(9, 9);
+        new CornFarmer(grid, 0, 0);
+        new RadishFarmer(grid, 4, 4);
+        new RadishFarmer(grid, 0, 8);
+        new Rabbit(grid, 0, 4);
+        new Beaver(grid, 4, 0);
+        new HorizontalTransporter(grid, 0, 2, 10);
+        new HorizontalTransporter(grid, 0, 6, 10);
+        new HorizontalTransporter(grid, 4, 2, 10);
         new VerticalTransporter(grid, 2, 0, 10);
+        new VerticalTransporter(grid, 2, 4, 10);
+
+        // Item.printInfoMessages = true;
 
         Game game = new Game(grid);
-        game.run(6);
+        game.run(5);
 
         /* Grid myGrid = new Grid (5,5);
 

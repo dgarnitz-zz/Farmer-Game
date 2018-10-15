@@ -52,11 +52,15 @@ public class Grid extends AbstractGrid {
 
     @Override
     public void reduceStockAt(int xCoordinate, int yCoordinate, int nutrition){
-        if(stock[yCoordinate][xCoordinate] < nutrition){
-            stock[yCoordinate][xCoordinate] = 0;
+        int currentStock = getStockAt(xCoordinate, yCoordinate);
+        if(currentStock < nutrition){
+            setStockAt(xCoordinate, yCoordinate,0);
+            //stock[yCoordinate][xCoordinate] = 0;
         }
         else{
-            stock[yCoordinate][xCoordinate] -= nutrition;
+            currentStock -= nutrition;
+            setStockAt(xCoordinate, yCoordinate, currentStock);
+            //stock[yCoordinate][xCoordinate] -= nutrition;
         }
     }
 

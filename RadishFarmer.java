@@ -56,7 +56,7 @@ public class RadishFarmer extends AbstractItem {
 
     @Override
     protected int getStock() {
-        return grid.getStockAt(xCoordinate, yCoordinate);
+        return this.grid.getStockAt(this.xCoordinate, this.yCoordinate);
     }
 
     @Override
@@ -66,6 +66,6 @@ public class RadishFarmer extends AbstractItem {
 
     @Override
     protected void reduceStock(int nutrition) {
-        grid.reduceStockAt(xCoordinate, yCoordinate, nutrition);
+        grid.reduceStockAt(this.xCoordinate, this.yCoordinate, nutrition);
     }
 }

@@ -16,85 +16,95 @@ public class HorizontalTransporter extends AbstractItem {
         return type;
     }
 
-    public int farmerLocation(){
+    public AbstractItem goLeft() {
+        AbstractItem foundFarmer = null;
+        AbstractItem foundConsumer = null;
+        for (int i = xCoordinate - 1; i >= 0; i--) {
+            AbstractItem myItem = grid.getItem(i, yCoordinate);
+            if (myItem instanceof RadishFarmer || myItem instanceof CornFarmer) {
+                foundFarmer = myItem;
+                return foundFarmer;
+            } else if (myItem instanceof Rabbit || myItem instanceof Beaver) {
+                foundConsumer = myItem;
+                return foundConsumer;
+            }
+        }
+
+        return null;
+    }
+    public AbstractItem goRight(){
+
+        AbstractItem foundFarmer = null;
+        AbstractItem foundConsumer = null;
         int gridWidth = grid.getWidth();
-        for(int i=xCoordinate-1; i>=0;  i--){
-            AbstractItem farmer = grid.getItem(i, yCoordinate);
-            if(farmer instanceof RadishFarmer || farmer instanceof CornFarmer){
-                return i;
-            }
-        }
         for(int k = xCoordinate; k<gridWidth; k++){
-            AbstractItem farmer = grid.getItem(k, yCoordinate);
-            if(farmer instanceof RadishFarmer || farmer instanceof CornFarmer){
-                return k;
+            AbstractItem myItem = grid.getItem(k, yCoordinate);
+            if (myItem instanceof RadishFarmer || myItem instanceof CornFarmer) {
+                foundFarmer = myItem;
+                return foundFarmer;
+            } else if (myItem instanceof Rabbit || myItem instanceof Beaver) {
+                foundConsumer = myItem;
+                return foundConsumer;
             }
         }
-        return gridWidth+1;
+
+        return null;
     }
 
-    public int consumerLocation(int farmerXCoordinate){
-        int gridWidth = grid.getWidth();
-        if(farmerXCoordinate < xCoordinate){
+    public String isFarmerOrConsumer(AbstractItem first){
+        String itemType;
 
-            for(int m = xCoordinate - 1; m>farmerXCoordinate; m--){
-                AbstractItem checkPath = grid.getItem(m, yCoordinate);
-                if(checkPath != null){
-                    return gridWidth+1;
-                }
-            }
-
-            for(int j = xCoordinate + 1; j<gridWidth; j++){
-                AbstractItem consumer = grid.getItem(j, yCoordinate);
-                if(consumer instanceof Rabbit || consumer instanceof Beaver){
-                    return j;
-                }
-            }
+        if(first instanceof RadishFarmer || first instanceof CornFarmer){
+            itemType = "Farmer";
         }
-        else{
-
-            for(int m = xCoordinate + 1; m<farmerXCoordinate; m++){
-                AbstractItem checkPath = grid.getItem(m,yCoordinate);
-                if(checkPath != null){
-                    return gridWidth+1;
-                }
-            }
-
-            for(int j = xCoordinate - 1; j>=0; j--){
-                AbstractItem consumer = grid.getItem(j, yCoordinate);
-                if(consumer instanceof Rabbit || consumer instanceof Beaver){
-                    return j;
-                }
-            }
+        else if (first instanceof Beaver || first instanceof Rabbit){
+            itemType = "Consumer";
         }
-        return gridWidth+1;
+        else {
+            itemType = "ineligible";
+        }
+
+        return itemType;
     }
 
     @Override
     public void process(TimeStep timeStep) {
-        int farmerXCoordinate = farmerLocation();
-        if(farmerXCoordinate==(grid.getWidth()+1)){
-            return;
-        }
-        int consumerXCoordinate = consumerLocation(farmerXCoordinate);
-        if(consumerXCoordinate==(grid.getWidth()+1)){
-            return;
-        }
+        AbstractItem firstFound = goLeft();
+        AbstractItem secondFound = goRight();
 
-        int farmerStock = grid.getStockAt(farmerXCoordinate, yCoordinate);
-        if(farmerStock > capacity){
-            grid.reduceStockAt(farmerXCoordinate, yCoordinate, capacity);
-            grid.addToStockAt(consumerXCoordinate, yCoordinate, capacity);
+        String firstType = isFarmerOrConsumer(firstFound);
+        String secondType = isFarmerOrConsumer(secondFound);
+
+        if(firstType.equals("Consumer") && secondType.equals("Farmer")){
+            int farmerStock = grid.getStockAt(secondFound.xCoordinate, yCoordinate);
+            if(farmerStock > capacity){
+                secondFound.reduceStock(capacity);
+                grid.addToStockAt(firstFound.xCoordinate, yCoordinate, capacity);
+            }
+            else {
+                secondFound.reduceStock(farmerStock);
+                grid.addToStockAt(firstFound.xCoordinate, yCoordinate, farmerStock);
+            }
+        }
+        else if(firstType.equals("Farmer") && secondType.equals("Consumer")){
+            int farmerStock = grid.getStockAt(firstFound.xCoordinate, yCoordinate);
+            if(farmerStock > capacity){
+                firstFound.reduceStock(capacity);
+                grid.addToStockAt(secondFound.xCoordinate, yCoordinate, capacity);
+            }
+            else {
+                firstFound.reduceStock(farmerStock);
+                grid.addToStockAt(secondFound.xCoordinate, yCoordinate, farmerStock);
+            }
         }
         else {
-            grid.reduceStockAt(farmerXCoordinate, yCoordinate, farmerStock);
-            grid.addToStockAt(consumerXCoordinate, yCoordinate, farmerStock);
+            return;
         }
     }
 
     @Override
     protected int getStock(){
-        return grid.getStockAt(yCoordinate, xCoordinate);
+        return grid.getStockAt(xCoordinate, yCoordinate);
     }
 
     @Override
