@@ -108,12 +108,10 @@ public class Grid extends AbstractGrid {
         int currentStock = getStockAt(xCoordinate, yCoordinate);
         if(currentStock < nutrition){
             setStockAt(xCoordinate, yCoordinate,0);
-            //stock[yCoordinate][xCoordinate] = 0;
         }
         else{
             currentStock -= nutrition;
             setStockAt(xCoordinate, yCoordinate, currentStock);
-            //stock[yCoordinate][xCoordinate] -= nutrition;
         }
     }
 
@@ -165,7 +163,7 @@ public class Grid extends AbstractGrid {
             }
         }
         else if(typeToCheck.equals("Transporter")){
-            if(currentCell instanceof HorizontalTransporter || currentCell instanceof VerticalTransporter){
+            if(currentCell instanceof HorizontalTransporter || currentCell instanceof VerticalTransporter || currentCell instanceof NearestTransporter){
                 currentCell.process(timeStep);
             }
         }

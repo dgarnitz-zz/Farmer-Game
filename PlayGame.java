@@ -12,16 +12,27 @@ public class PlayGame {
      */
     public static void main(String[] args){
 
-        Grid myGrid = new Grid (5,5);
+        Grid grid = new Grid(2, 3);
+        new CornFarmer(grid, 0, 0);
+        new Rabbit(grid, 0, 2);
+        new NearestTransporter(grid, 1, 1, 10);
 
-        RadishFarmer farmerOne = new RadishFarmer(myGrid, 0, 0);
-        //CornFarmer farmerTwo = new CornFarmer(myGrid, 2, 1);
+        Game game = new Game(grid);
+        game.run(5);
+
+
+        /* Grid myGrid = new Grid (6,6);
+
+        RadishFarmer farmerOne = new RadishFarmer(myGrid, 0, 5);
+        //CornFarmer farmerTwo = new CornFarmer(myGrid, 0, 0);
         //HorizontalTransporter transporterOne = new HorizontalTransporter(myGrid, 2, 0, 10);
-        VerticalTransporter transporter = new VerticalTransporter(myGrid, 1, 0, 10);
+        //VerticalTransporter transporterTwo = new VerticalTransporter(myGrid, 1, 0, 10);
+        NearestTransporter NT = new NearestTransporter(myGrid, 2, 4, 10);
         Rabbit rabbitTwo = new Rabbit(myGrid, 4, 0);
-        Beaver beaverOne = new Beaver(myGrid, 2, 4);
+        Beaver beaverOne = new Beaver(myGrid, 4, 5);
 
         Game myGame = new Game(myGrid);
-        myGame.run(12);
+        myGame.run(4);
+        */
     }
 }
