@@ -1,45 +1,27 @@
+/**
+ * Class designed to setup and actually play the game
+ */
 public class PlayGame {
     public static int production = 0;
     public static int consumption = 0;
 
+    /**
+     * Main method of the PlayGame class. It instantiates the Grid, farmers, tranporters and consumers, creates
+     * a new Game and runs the game.
+     * @param args
+     */
     public static void main(String[] args){
 
-        Grid grid = new Grid(9, 9);
-        new CornFarmer(grid, 0, 0);
-        new RadishFarmer(grid, 4, 4);
-        new RadishFarmer(grid, 0, 8);
-        new Rabbit(grid, 0, 4);
-        new Beaver(grid, 4, 0);
-        new HorizontalTransporter(grid, 0, 2, 10);
-        new HorizontalTransporter(grid, 0, 6, 10);
-        new HorizontalTransporter(grid, 4, 2, 10);
-        new VerticalTransporter(grid, 2, 0, 10);
-        new VerticalTransporter(grid, 2, 4, 10);
-
-        // Item.printInfoMessages = true;
-
-        Game game = new Game(grid);
-        game.run(5);
-
-        /* Grid myGrid = new Grid (5,5);
+        Grid myGrid = new Grid (5,5);
 
         RadishFarmer farmerOne = new RadishFarmer(myGrid, 0, 0);
         CornFarmer farmerTwo = new CornFarmer(myGrid, 2, 1);
         HorizontalTransporter transporterOne = new HorizontalTransporter(myGrid, 2, 0, 10);
         VT transporterTwo = new VT(myGrid, 2, 3, 10);
         Rabbit rabbitTwo = new Rabbit(myGrid, 4, 0);
-        Beaver beaverOne = new Beaver(myGrid, 2, 4); */
-
-        /* not sure if there is a way to do this automatically on the class */
-        /* myGrid.registerItem(farmerOne.xCoordinate, farmerOne.yCoordinate, farmerOne);
-        myGrid.registerItem(farmerTwo.xCoordinate, farmerTwo.yCoordinate, farmerTwo);
-        myGrid.registerItem(transporterOne.xCoordinate, transporterOne.yCoordinate, transporterOne);
-        myGrid.registerItem(transporterTwo.xCoordinate, transporterTwo.yCoordinate, transporterTwo);
-        myGrid.registerItem(rabbitTwo.xCoordinate, rabbitTwo.yCoordinate, rabbitTwo);
-        myGrid.registerItem(beaverOne.xCoordinate, beaverOne.yCoordinate, beaverOne);
+        Beaver beaverOne = new Beaver(myGrid, 2, 4);
 
         Game myGame = new Game(myGrid);
         myGame.run(12);
-        */
     }
 }

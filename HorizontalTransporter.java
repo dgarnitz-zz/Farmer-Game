@@ -11,11 +11,20 @@ public class HorizontalTransporter extends AbstractItem {
         grid.registerItem(xCoordinate, yCoordinate, this);
     }
 
+    /**
+     * Overrides toString method to return the class' type attribute
+     * @return
+     */
     @Override
     public String toString(){
         return type;
     }
 
+    /**
+     * method that will check all the cells on the same horizontal line left of the HT for an abstract item,
+     * then check if that item is a farmer or a consumer, and it if is, return the item, if not, it returns null
+     * @return
+     */
     public AbstractItem goLeft() {
         AbstractItem foundFarmer = null;
         AbstractItem foundConsumer = null;
@@ -32,6 +41,12 @@ public class HorizontalTransporter extends AbstractItem {
 
         return null;
     }
+
+    /**
+     * method that will check all the cells on the same horizontal line right of the HT for an abstract item,
+     * then check if that item is a farmer or a consumer, and it if is, return the item, if not, it returns null
+     * @return
+     */
     public AbstractItem goRight(){
 
         AbstractItem foundFarmer = null;
@@ -51,6 +66,13 @@ public class HorizontalTransporter extends AbstractItem {
         return null;
     }
 
+    /**
+     * Method takes the one of the two abstract items found in the process method, checks if it is an instance of a
+     * farmer or a consumer, if it is, returns a string with the either "farmer" or "consumer", otherwise returns a
+     * null string
+     * @param first
+     * @return
+     */
     public String isFarmerOrConsumer(AbstractItem first){
         String itemType;
 
@@ -67,6 +89,14 @@ public class HorizontalTransporter extends AbstractItem {
         return itemType;
     }
 
+    /**
+     * This method processes the nutrition movement activity of the HT. It works by calling goLeft() and goRight() to
+     * grab two abstract items. It then uses isFarmerOrConsumer to check if each abstract item is a farmer or a
+     * consumer. If one item is a farmer and one item is a consumer, then it will move some amount of stock, either its
+     * capacity or the amount of stock at the farmer if its less than the capacity, from the farmer to the consumer.
+     * It reduces the stock at the farmer and increases the stock at the consumer.
+     * @param timeStep
+     */
     @Override
     public void process(TimeStep timeStep) {
         AbstractItem firstFound = goLeft();
@@ -102,6 +132,10 @@ public class HorizontalTransporter extends AbstractItem {
         }
     }
 
+    /**
+     * Method to get the stock at the cell the VT is in
+     * @return
+     */
     @Override
     protected int getStock(){
         return grid.getStockAt(xCoordinate, yCoordinate);

@@ -1,8 +1,18 @@
+/**
+ * Class designed to move nutrion vertically from a farmer to a consumer on the same vertical line
+ */
 public class VerticalTransporter extends AbstractItem {
 
     public int capacity;
     public String type = "VT";
 
+    /**
+     * Constructor class
+     * @param grid
+     * @param yCoordinate
+     * @param xCoordinate
+     * @param capacity
+     */
     public VerticalTransporter(Grid grid, int yCoordinate, int xCoordinate, int capacity) {
         this.grid = grid;
         this.xCoordinate = xCoordinate;
@@ -11,11 +21,20 @@ public class VerticalTransporter extends AbstractItem {
         grid.registerItem(xCoordinate, yCoordinate, this);
     }
 
+    /**
+     * Overrides toString method to return the class' type attribute
+     * @return
+     */
     @Override
     public String toString(){
         return type;
     }
 
+    /**
+     * method that will check all the cells on the same vertical line above the VT for an abstract item,
+     * then check if that item is a farmer or a consumer, and it if is, return the item, if not, it returns null
+     * @return
+     */
     public AbstractItem goUp() {
         AbstractItem foundFarmer = null;
         AbstractItem foundConsumer = null;
@@ -32,6 +51,12 @@ public class VerticalTransporter extends AbstractItem {
 
         return null;
     }
+
+    /**
+     * method that will check all the cells on the same vertical line below the VT for an abstract item,
+     * then check if that item is a farmer or a consumer, and it if is, return the item, if not, it returns null
+     * @return
+     */
     public AbstractItem goDown(){
 
         AbstractItem foundFarmer = null;
@@ -51,6 +76,13 @@ public class VerticalTransporter extends AbstractItem {
         return null;
     }
 
+    /**
+     * Method takes the one of the two abstract items found in the process method, checks if it is an instance of a
+     * farmer or a consumer, if it is, returns a string with the either "farmer" or "consumer", otherwise returns a
+     * null string
+     * @param first
+     * @return
+     */
     public String isFarmerOrConsumer(AbstractItem first){
         String itemType;
 
@@ -67,6 +99,14 @@ public class VerticalTransporter extends AbstractItem {
         return itemType;
     }
 
+    /**
+     * This method processes the nutrition movement activity of the VT. It works by calling goUp() and goDown() to
+     * grab two abstract items. It then uses isFarmerOrConsumer to check if each abstract item is a farmer or a
+     * consumer. If one item is a farmer and one item is a consumer, then it will move some amount of stock, either its
+     * capacity or the amount of stock at the farmer if its less than the capacity, from the farmer to the consumer.
+     * It reduces the stock at the farmer and increases the stock at the consumer.
+     * @param timeStep
+     */
     @Override
     public void process(TimeStep timeStep) {
         AbstractItem firstFound = goUp();
@@ -102,6 +142,10 @@ public class VerticalTransporter extends AbstractItem {
         }
     }
 
+    /**
+     * Method to get the stock at the cell the VT is in
+     * @return
+     */
     @Override
     protected int getStock(){
         return grid.getStockAt(yCoordinate, xCoordinate);
