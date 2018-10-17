@@ -83,13 +83,13 @@ public class VerticalTransporter extends AbstractItem {
      * @param first
      * @return
      */
-    public String isFarmerOrConsumer(AbstractItem first){
+    public String isFarmerOrConsumer(AbstractItem currentItem){
         String itemType;
 
-        if(first instanceof RadishFarmer || first instanceof CornFarmer){
+        if(currentItem instanceof RadishFarmer || currentItem instanceof CornFarmer){
             itemType = "Farmer";
         }
-        else if (first instanceof Beaver || first instanceof Rabbit){
+        else if (currentItem instanceof Beaver || currentItem instanceof Rabbit){
             itemType = "Consumer";
         }
         else {
@@ -100,11 +100,30 @@ public class VerticalTransporter extends AbstractItem {
     }
 
     /**
+     * Takes two abstract items, a consumer and a farmer respectively, grabs the stock at the first one, checks if its
+     * greater than the capacity of the transporter, then reduces the farmer's stock by either the capacity or the
+     * amount of the stock if its less than the capacity. It then adds that amount to the stock at the consumer's
+     * location.
+     * @param first
+     * @param second
+     */
+    public void transport(AbstractItem first, AbstractItem second){
+        int farmerStock = grid.getStockAt(xCoordinate, second.yCoordinate);
+        if(farmerStock > capacity){
+            second.reduceStock(capacity);
+            grid.addToStockAt(xCoordinate, first.yCoordinate, capacity);
+        }
+        else {
+            second.reduceStock(farmerStock);
+            grid.addToStockAt(xCoordinate, first.yCoordinate, farmerStock);
+        }
+    }
+
+    /**
      * This method processes the nutrition movement activity of the VT. It works by calling goUp() and goDown() to
      * grab two abstract items. It then uses isFarmerOrConsumer to check if each abstract item is a farmer or a
-     * consumer. If one item is a farmer and one item is a consumer, then it will move some amount of stock, either its
-     * capacity or the amount of stock at the farmer if its less than the capacity, from the farmer to the consumer.
-     * It reduces the stock at the farmer and increases the stock at the consumer.
+     * consumer. If one item is a farmer and one item is a consumer, then it will use the transport method to move the
+     * stock.
      * @param timeStep
      */
     @Override
@@ -116,26 +135,10 @@ public class VerticalTransporter extends AbstractItem {
         String secondType = isFarmerOrConsumer(secondFound);
 
         if(firstType.equals("Consumer") && secondType.equals("Farmer")){
-            int farmerStock = grid.getStockAt(xCoordinate, secondFound.yCoordinate);
-            if(farmerStock > capacity){
-                secondFound.reduceStock(capacity);
-                grid.addToStockAt(xCoordinate, firstFound.yCoordinate, capacity);
-            }
-            else {
-                secondFound.reduceStock(farmerStock);
-                grid.addToStockAt(xCoordinate, firstFound.yCoordinate, farmerStock);
-            }
+            transport(firstFound, secondFound);
         }
         else if(firstType.equals("Farmer") && secondType.equals("Consumer")){
-            int farmerStock = grid.getStockAt(xCoordinate, firstFound.yCoordinate);
-            if(farmerStock > capacity){
-                firstFound.reduceStock(capacity);
-                grid.addToStockAt(xCoordinate, secondFound.yCoordinate, capacity);
-            }
-            else {
-                firstFound.reduceStock(farmerStock);
-                grid.addToStockAt(xCoordinate, secondFound.yCoordinate, farmerStock);
-            }
+            transport(secondFound, firstFound);
         }
         else {
             return;
