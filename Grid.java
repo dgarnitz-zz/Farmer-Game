@@ -135,42 +135,56 @@ public class Grid extends AbstractGrid {
     }
 
     /**
-     *This method searches the grid three separate times using nested for-loops. It gets the item in each cell in the
-     * grid, and checks if the instance is a farmer, transporter or consumer. The first set of nested for-loops
-     * processes farmers, calling their process method with the timeStep as an argument, the second set processes
-     * transporters, calling their process method with the timeStep as an argument, the third processes consumers,
-     * calling their process method with the timeStep as an argument.
+     * This method takes a TimeStep and a string containing an item type that is supposed to be processed. It then
+     * searches through every cell in the Grid, calls getItem on that method and passes it to checkTypeAndProcess
+     * along with the item type string and TimeStep so it can be processed.
+     * @param timeStep
+     * @param itemType
+     */
+    public void search(TimeStep timeStep, String itemType){
+        for (int i=0; i<height; i++){
+            for (int j=0; j<width; j++){
+                AbstractItem currentCell = getItem(j, i);
+                checkTypeAndProcess(currentCell, itemType, timeStep);
+            }
+        }
+    }
+
+    /**
+     * This method takes an AbstractItem and depending on the itemType string it was passsed, checks if teh AbstractItem
+     * is an instance of a particular object. If it is an instance of the specified type, it calls that object's
+     * process method with the given TimeStep.
+     * @param currentCell
+     * @param typeToCheck
+     * @param timeStep
+     */
+    public void checkTypeAndProcess(AbstractItem currentCell, String typeToCheck, TimeStep timeStep){
+        if(typeToCheck.equals("Farmer")){
+            if(currentCell instanceof RadishFarmer || currentCell instanceof CornFarmer){
+                currentCell.process(timeStep);
+            }
+        }
+        else if(typeToCheck.equals("Transporter")){
+            if(currentCell instanceof HorizontalTransporter || currentCell instanceof VerticalTransporter){
+                currentCell.process(timeStep);
+            }
+        }
+        else if(typeToCheck.equals("Consumer")){
+            if(currentCell instanceof Rabbit || currentCell instanceof Beaver){
+                currentCell.process(timeStep);
+            }
+        }
+    }
+
+    /**
+     *This method initates the grid searching of processing of each type of item located in the grid.
      * @param timeStep
      */
     @Override
     public void processItems(TimeStep timeStep){
-        /* Processs the farmers */
-        for (int i=0; i<height; i++){
-            for (int j=0; j<width; j++){
-                AbstractItem currentCell = getItem(j, i);
-                if(currentCell instanceof RadishFarmer || currentCell instanceof CornFarmer){
-                    currentCell.process(timeStep);
-                }
-            }
-        }
-        /* Processs the transporters */
-        for (int k=0; k<height; k++){
-            for (int l=0; l<width; l++){
-                AbstractItem currentCell = getItem(l, k);
-                if(currentCell instanceof HorizontalTransporter || currentCell instanceof VerticalTransporter){
-                    currentCell.process(timeStep);
-                }
-            }
-        }
-        /* Processs the consumers */
-        for (int m=0; m<height; m++){
-            for (int n=0; n<width; n++){
-                AbstractItem currentCell = getItem(n, m);
-                if(currentCell instanceof Rabbit || currentCell instanceof Beaver){
-                    currentCell.process(timeStep);
-                }
-            }
-        }
+        search(timeStep, "Farmer");
+        search(timeStep, "Transporter");
+        search(timeStep, "Consumer");
     }
 
     /**
