@@ -25,6 +25,13 @@ public class NearestTransporter extends AbstractItem {
         return type;
     }
 
+    /**
+     * This method takes an AbstractItem as an argument and calculates its straight line distance from this instance of
+     * the NearestTransporters using the Pythagorean distance formula. It breaks the formula into two parts so it can
+     * type cast the grid distances, stored as integers, into doubles.
+     * @param currentItem
+     * @return
+     */
     public double distance(AbstractItem currentItem) {
         double distanceSquared = (double)((currentItem.yCoordinate - yCoordinate)*(currentItem.yCoordinate - yCoordinate) + (currentItem.xCoordinate - xCoordinate)*(currentItem.xCoordinate - xCoordinate));
         return Math.sqrt(distanceSquared);
@@ -100,7 +107,10 @@ public class NearestTransporter extends AbstractItem {
     }
 
     /**
-     *
+     * This method processes the activity of the NearestTransporter by first calling the search method to find the
+     * nearest consumer and farmer. Then it double checks that they are instances of farmer or consumer classes, and
+     * that those obejcts are not equidistant this instance of NearestTransporter as other farmers or consumers are.
+     * It then calls the transport method to carry out the movement of stock. 
      * @param timeStep
      */
     @Override
