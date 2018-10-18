@@ -12,10 +12,11 @@ public class PlayGame {
      */
     public static void main(String[] args){
 
-        Grid grid = new Grid(2, 3);
+        Grid grid = new Grid(4, 3);
         new CornFarmer(grid, 0, 0);
-        new Rabbit(grid, 0, 2);
-        new NearestTransporter(grid, 1, 1, 10);
+        new CornFarmer(grid, 0, 2);
+        new Rabbit(grid, 2, 2);
+        new NearestTransporter(grid, 1, 2, 10);
 
         Game game = new Game(grid);
         game.run(5);

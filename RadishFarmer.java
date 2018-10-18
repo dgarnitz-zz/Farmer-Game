@@ -1,4 +1,4 @@
-public class RadishFarmer extends AbstractItem {
+public class RadishFarmer extends Farmer {
 
     public String type = "Radish";
 
@@ -15,41 +15,6 @@ public class RadishFarmer extends AbstractItem {
         grid.registerItem(xCoordinate, yCoordinate, this);
     }
 
-    /**
-     * This method checks if there are any farmers within 1 cells left, right, up or down. If another
-     * farmer is located within this range, it returns true. Otherwise it returns false. It works using the
-     * grid.getItem method on each of the cells specified. It uses if-statements to make sure that out-of-bounds cells
-     * are not checked.
-     * @return
-     */
-    public boolean checkOtherFarmers(){
-        AbstractItem checkFarmer;
-        if(xCoordinate > 0){
-            checkFarmer = grid.getItem(xCoordinate - 1, yCoordinate);
-            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
-                return true;
-            }
-        }
-        if(xCoordinate < grid.getWidth() - 1) {
-            checkFarmer = grid.getItem(xCoordinate + 1, yCoordinate);
-            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
-                return true;
-            }
-        }
-        if(yCoordinate > 0){
-            checkFarmer = grid.getItem(xCoordinate, yCoordinate - 1);
-            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
-                return true;
-            }
-        }
-        if(yCoordinate < grid.getHeight() - 1) {
-            checkFarmer = grid.getItem(xCoordinate, yCoordinate + 1);
-            if(checkFarmer instanceof RadishFarmer || checkFarmer instanceof CornFarmer){
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * This method processes the nutrition production activity of the Radish Farmer. It works by checking if the
@@ -77,32 +42,5 @@ public class RadishFarmer extends AbstractItem {
     public String toString(){
         int stock = getStock();
         return type + "(" + stock + ")";
-    }
-
-    /**
-     * Method to return the stock located at the cell where this instance of RadishFarmer is located
-     * @return
-     */
-    @Override
-    protected int getStock() {
-        return this.grid.getStockAt(this.xCoordinate, this.yCoordinate);
-    }
-
-    /**
-     * Method to add to stock located at the cell where this instance of RadishFarmer is located
-     * @return
-     */
-    @Override
-    protected void addToStock(int nutrition) {
-        grid.addToStockAt(xCoordinate, yCoordinate, nutrition);
-    }
-
-    /**
-     * Method to reduce the stock located at the cell where this instance of RadishFarmer is located
-     * @return
-     */
-    @Override
-    protected void reduceStock(int nutrition) {
-        grid.reduceStockAt(this.xCoordinate, this.yCoordinate, nutrition);
     }
 }
