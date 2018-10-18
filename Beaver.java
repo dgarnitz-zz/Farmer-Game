@@ -1,4 +1,4 @@
-public class Beaver extends AbstractItem {
+public class Beaver extends Consumer {
 
     public String type = "Beaver";
 
@@ -24,19 +24,7 @@ public class Beaver extends AbstractItem {
      */
     @Override
     public void process(TimeStep timeStep) {
-        int stock = getStock();
-        if(stock <= 5){
-            grid.recordConsumption(stock);
-            reduceStock(stock);
-        }
-        else{
-            grid.recordConsumption(5);
-            reduceStock(5);
-        }
-        stock = getStock();
-        if(stock > 50){
-            grid.setStockAt(xCoordinate, yCoordinate, 50);
-        }
+        consume(5, 50);
     }
 
     /**
@@ -47,32 +35,5 @@ public class Beaver extends AbstractItem {
     public String toString(){
         int stock = getStock();
         return type + "(" + stock + ")";
-    }
-
-    /**
-     * Method to return the stock located at the cell where this instance of Beaver is located
-     * @return
-     */
-    @Override
-    protected int getStock() {
-        return grid.getStockAt(xCoordinate, yCoordinate);
-    }
-
-    /**
-     * Method to add to the stock located at the cell where this instance of Beaver is located
-     * @return
-     */
-    @Override
-    protected void addToStock(int nutrition) {
-        grid.addToStockAt(xCoordinate, yCoordinate, nutrition);
-    }
-
-    /**
-     * Method to reduce the stock located at the cell where this instance of Beaver is located
-     * @return
-     */
-    @Override
-    protected void reduceStock(int nutrition) {
-        grid.reduceStockAt(xCoordinate, yCoordinate, nutrition);
     }
 }

@@ -13,7 +13,7 @@ public class PlayGame {
     public static void main(String[] args){
 
         Grid grid = new Grid(4, 3);
-        new CornFarmer(grid, 0, 0);
+        new CornFarmer(grid, 1, 0);
         new CornFarmer(grid, 0, 2);
         new Rabbit(grid, 2, 2);
         new NearestTransporter(grid, 1, 2, 10);
