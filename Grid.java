@@ -158,17 +158,17 @@ public class Grid extends AbstractGrid {
      */
     public void checkTypeAndProcess(AbstractItem currentCell, String typeToCheck, TimeStep timeStep){
         if(typeToCheck.equals("Farmer")){
-            if(currentCell instanceof RadishFarmer || currentCell instanceof CornFarmer){
+            if(currentCell instanceof Farmer){
                 currentCell.process(timeStep);
             }
         }
         else if(typeToCheck.equals("Transporter")){
-            if(currentCell instanceof HorizontalTransporter || currentCell instanceof VerticalTransporter || currentCell instanceof NearestTransporter){
+            if(currentCell instanceof Transporter){
                 currentCell.process(timeStep);
             }
         }
         else if(typeToCheck.equals("Consumer")){
-            if(currentCell instanceof Rabbit || currentCell instanceof Beaver){
+            if(currentCell instanceof Consumer){
                 currentCell.process(timeStep);
             }
         }
