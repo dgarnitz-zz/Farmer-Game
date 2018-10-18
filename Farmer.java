@@ -1,3 +1,6 @@
+/**
+ * The Farmer class contains methods to assist with the implementation of farmer type items.
+ */
 public class Farmer extends AbstractItem {
 
     @Override

@@ -1,4 +1,4 @@
-public class HorizontalTransporter extends AbstractItem {
+public class HorizontalTransporter extends Transporter {
 
     public int capacity;
     public String type = "HT";
@@ -89,27 +89,6 @@ public class HorizontalTransporter extends AbstractItem {
         return itemType;
     }
 
-
-    /**
-     * Takes two abstract items, a consumer and a farmer respectively, grabs the stock at the first one, checks if its
-     * greater than the capacity of the transporter, then reduces the farmer's stock by either the capacity or the
-     * amount of the stock if its less than the capacity. It then adds that amount to the stock at the consumer's
-     * location.
-     * @param first
-     * @param second
-     */
-    public void transport(AbstractItem first, AbstractItem second){
-        int farmerStock = grid.getStockAt(second.xCoordinate, yCoordinate);
-        if(farmerStock > capacity){
-            second.reduceStock(capacity);
-            grid.addToStockAt(first.xCoordinate, yCoordinate, capacity);
-        }
-        else {
-            second.reduceStock(farmerStock);
-            grid.addToStockAt(first.xCoordinate, yCoordinate, farmerStock);
-        }
-    }
-
     /**
      * This method processes the nutrition movement activity of the HT. It works by calling goLeft() and goRight() to
      * grab two abstract items. It then uses isFarmerOrConsumer to check if each abstract item is a farmer or a
@@ -126,32 +105,13 @@ public class HorizontalTransporter extends AbstractItem {
         String secondType = isFarmerOrConsumer(secondFound);
 
         if(firstType.equals("Consumer") && secondType.equals("Farmer")){
-            transport(firstFound, secondFound);
+            transport(firstFound, secondFound, capacity);
         }
         else if(firstType.equals("Farmer") && secondType.equals("Consumer")){
-            transport(secondFound, firstFound);
+            transport(secondFound, firstFound, capacity);
         }
         else {
             return;
         }
-    }
-
-    /**
-     * Method to get the stock at the cell the VT is in
-     * @return
-     */
-    @Override
-    protected int getStock(){
-        return grid.getStockAt(xCoordinate, yCoordinate);
-    }
-
-    @Override
-    protected void addToStock(int nutrition){
-
-    }
-
-    @Override
-    protected void reduceStock(int nutrition){
-
     }
 }

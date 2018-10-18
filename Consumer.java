@@ -1,3 +1,6 @@
+/**
+ * The Consumer class contains methods to assist with the implementation of consumer type items.
+ */
 abstract class Consumer extends AbstractItem {
 
     /**
@@ -5,7 +8,7 @@ abstract class Consumer extends AbstractItem {
      * the amount at stock and reduces the stock at the consumer's cell by that amount. If the stock is greater than
      * the consumption rate, it records consumption equal to the consumption rate and reduces the stock by that
      * amount. After consuming, it checks if the stock is greater than the storage capacity, and if it is, it sets the
-     * stock equal to the storage capacity. 
+     * stock equal to the storage capacity.
      * @param consumptionRate
      * @param storage
      */
