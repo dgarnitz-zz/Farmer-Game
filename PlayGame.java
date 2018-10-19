@@ -21,24 +21,10 @@ public class PlayGame {
         new HorizontalTransporter(grid, 5, 3, 10);
         new Tiger(grid, 5, 4);
 
-        //new NearestTransporter(grid, 1, 2, 10);
-
         Game game = new Game(grid);
-        game.run(10);
+        game.run(20);
 
 
-        /* Grid myGrid = new Grid (6,6);
 
-        RadishFarmer farmerOne = new RadishFarmer(myGrid, 0, 5);
-        //CornFarmer farmerTwo = new CornFarmer(myGrid, 0, 0);
-        //HorizontalTransporter transporterOne = new HorizontalTransporter(myGrid, 2, 0, 10);
-        //VerticalTransporter transporterTwo = new VerticalTransporter(myGrid, 1, 0, 10);
-        NearestTransporter NT = new NearestTransporter(myGrid, 2, 4, 10);
-        Rabbit rabbitTwo = new Rabbit(myGrid, 4, 0);
-        Beaver beaverOne = new Beaver(myGrid, 4, 5);
-
-        Game myGame = new Game(myGrid);
-        myGame.run(4);
-        */
     }
 }
