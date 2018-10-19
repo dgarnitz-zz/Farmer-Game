@@ -30,10 +30,10 @@ public class HorizontalTransporter extends Transporter {
         AbstractItem foundConsumer = null;
         for (int i = xCoordinate - 1; i >= 0; i--) {
             AbstractItem myItem = grid.getItem(i, yCoordinate);
-            if (myItem instanceof RadishFarmer || myItem instanceof CornFarmer) {
+            if (myItem instanceof Farmer) {
                 foundFarmer = myItem;
                 return foundFarmer;
-            } else if (myItem instanceof Rabbit || myItem instanceof Beaver) {
+            } else if (myItem instanceof Consumer) {
                 foundConsumer = myItem;
                 return foundConsumer;
             }
@@ -54,39 +54,16 @@ public class HorizontalTransporter extends Transporter {
         int gridWidth = grid.getWidth();
         for(int k = xCoordinate; k<gridWidth; k++){
             AbstractItem myItem = grid.getItem(k, yCoordinate);
-            if (myItem instanceof RadishFarmer || myItem instanceof CornFarmer) {
+            if (myItem instanceof Farmer) {
                 foundFarmer = myItem;
                 return foundFarmer;
-            } else if (myItem instanceof Rabbit || myItem instanceof Beaver) {
+            } else if (myItem instanceof Consumer) {
                 foundConsumer = myItem;
                 return foundConsumer;
             }
         }
 
         return null;
-    }
-
-    /**
-     * Method takes the one of the two abstract items found in the process method, checks if it is an instance of a
-     * farmer or a consumer, if it is, returns a string with the either "farmer" or "consumer", otherwise returns a
-     * null string
-     * @param first
-     * @return
-     */
-    public String isFarmerOrConsumer(AbstractItem currentItem){
-        String itemType;
-
-        if(currentItem instanceof RadishFarmer || currentItem instanceof CornFarmer){
-            itemType = "Farmer";
-        }
-        else if (currentItem instanceof Beaver || currentItem instanceof Rabbit){
-            itemType = "Consumer";
-        }
-        else {
-            itemType = "ineligible";
-        }
-
-        return itemType;
     }
 
     /**

@@ -12,14 +12,19 @@ public class PlayGame {
      */
     public static void main(String[] args){
 
-        Grid grid = new Grid(4, 3);
-        new CornFarmer(grid, 1, 0);
-        new CornFarmer(grid, 0, 2);
-        new Rabbit(grid, 2, 2);
-        new NearestTransporter(grid, 1, 2, 10);
+        Grid grid = new Grid(6, 6);
+        new CornFarmer(grid, 0, 0);
+        new CornFarmer(grid, 5, 2);
+        new Rabbit(grid, 0, 5);
+        new Rabbit(grid, 3, 3);
+        new HorizontalTransporter(grid, 0, 3, 10);
+        new HorizontalTransporter(grid, 5, 3, 10);
+        new Tiger(grid, 5, 4);
+
+        //new NearestTransporter(grid, 1, 2, 10);
 
         Game game = new Game(grid);
-        game.run(5);
+        game.run(10);
 
 
         /* Grid myGrid = new Grid (6,6);

@@ -16,10 +16,8 @@ public class Beaver extends Consumer {
     }
 
     /**
-     * This method processes the nutrition production activity of the Rabbit. It works by checking if the stock
-     * is less than the consumption amount, if it is then it consumes the stock, if not it consumes the consumption
-     * amount. The beaver can store up to 50 units, but if the stock is more than 50 units at the end of the time step,
-     * it is reset to 50.
+     * This method processes the nutrition consumption activity of the Beaver by calling the consume method with the
+     * beaver's consumption rate and storage capacity as arguments.
      * @param timeStep
      */
     @Override
